@@ -1,0 +1,12 @@
+body {
+    background: #ccc;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.theform {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #eee;
+    background-color: black;
+}

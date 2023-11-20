@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hello {{ user.nickname }}</h1>
+<p>You want to get voucher for 37C3.</p>
+<p>This is good. c-base has a voucher that is good for max. 70 Tickets</p>
+
+<p>The following people already have got access to the voucher:</p>
+
+<p>Tickets left: 70</p>
+<form>
+<div class="theform">
+<p>
+    <label for="num_tickets">How many tickets do you intend to buy?</label>
+    <input id="num_tickets" type="number" step="1" value="num_tickets">
+</p>
+<p>
+    <input id="agree" type="checkbox" step="1" value="num_tickets">
+    <label for="agree">I will only buy tickets for myself</label>
+</p>
+<p>
+    <input id="agree" type="checkbox" step="1" value="num_tickets">
+    <label for="agree">I will not LEAK this voucher to other people!</label>
+</p>
+<p>
+    <input type="submit" value="Submit voucher request">
+</p>
+</div>
+</form>
+{% endblock content %}
