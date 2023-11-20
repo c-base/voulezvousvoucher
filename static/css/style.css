@@ -5,8 +5,21 @@ body {
 }
 
 .theform {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 20px;
     color: #eee;
     background-color: black;
+}
+
+@media screen and (max-width:720px) {
+    .theform {
+        width: 90%;
+    }
+}
+
+.hidden {
+    opacity: 0;
 }

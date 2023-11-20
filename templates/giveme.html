@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Okay, {{ user.nickname }}, here is the voucher:</h1>
+
+<div class="theform" style="text-align: center;">
+    <input type="text" readonly value="{{ voucher }}" id="foo" style="font-size: 24px; width: 100%"><br>
+    <input type="button" style="margin-top: 5px;" class="btn" data-clipboard-target="#foo" value="Copy to clipboard"><br>
+    <span id="copied" class="hidden">copied</span>
+</div>
+
+<p>
+Now go to <a href="https://tickets.events.ccc.de/">tickets.events.ccc.de</a>
+to buy your ticket.
+</p>
+
+<p>Or go <a href="../">back to homepage</a></p>
+
+<script src="../static/vendor/clipboard.min.js"></script>
+<script>
+
+var clipboard = new ClipboardJS('.btn');
+
+clipboard.on('success', function(e) {
+    document.getElementById('copied').classList.remove("hidden");
+    window.setTimeout(function() {
+        document.getElementById('copied').classList.add("hidden");
+    }, 3000);
+});
+</script>
+
+{% endblock content %}

@@ -5,26 +5,37 @@
 <p>You want to get voucher for 37C3.</p>
 <p>This is good. c-base has a voucher that is good for max. 70 Tickets</p>
 
-<p>The following people already have got access to the voucher:</p>
-
-<p>Tickets left: 70</p>
-<form>
+<form method="post" enctype="multipart/form-data" action="./giveme/">
 <div class="theform">
 <p>
     <label for="num_tickets">How many tickets do you intend to buy?</label>
-    <input id="num_tickets" type="number" step="1" value="num_tickets">
+    <input id="num_tickets" type="number" step="1" value="0" name="num_tickets">
 </p>
 <p>
-    <input id="agree" type="checkbox" step="1" value="num_tickets">
-    <label for="agree">I will only buy tickets for myself</label>
+    <input id="agree1" type="checkbox" step="1" name="agree1">
+    <label for="agree1">I will only buy tickets for myself</label>
 </p>
 <p>
-    <input id="agree" type="checkbox" step="1" value="num_tickets">
-    <label for="agree">I will not LEAK this voucher to other people!</label>
+    <input id="agree2" type="checkbox" step="1" name="agree2">
+    <label for="agree2">I will not LEAK this voucher to other people!</label>
 </p>
 <p>
     <input type="submit" value="Submit voucher request">
 </p>
 </div>
 </form>
+
+<p>Tickets left: {{ tickets_left }}</p>
+
+<p>The following people already have got access to the voucher:</p>
+
+<div class="theform">
+    {% for person in users %}
+        {{ person.nickname }}: {{ person.num_tickets }} tickets<br>
+    {% else %}
+        Nobody has bought a ticket yet.
+    {% endfor %}
+</div>
+
+
 {% endblock content %}
