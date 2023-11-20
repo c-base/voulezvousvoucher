@@ -96,6 +96,11 @@ async def homepage(request: Request):
             if sum_tickets is None:
                 sum_tickets = 0
             tickets_left = settings.total_tickets - sum_tickets
+
+            my_val = 0
+            query = list(db.query(User).filter(User.nickname == user['nickname']))
+            if len(query) > 0:
+               my_val = query[0].num_tickets
             
             context = {
                 "data": json.dumps(user),
@@ -104,7 +109,8 @@ async def homepage(request: Request):
                 "request": request,
                 "sum_tickets": sum_tickets,
                 "tickets_left": tickets_left,
-                "total_tickets": settings.total_tickets
+                "total_tickets": settings.total_tickets,
+                "my_val": my_val,
             }
             return templates.TemplateResponse("index.html", context)
     return templates.TemplateResponse("index_login_required.html", {"request": request})

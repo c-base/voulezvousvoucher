@@ -20,6 +20,20 @@ body {
     }
 }
 
+.cont {
+    width: 50%;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width:720px) {
+    .cont {
+        width: 90%;
+    }
+}
+
+
 .hidden {
     opacity: 0;
 }

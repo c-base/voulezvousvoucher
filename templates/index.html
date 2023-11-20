@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="cont" style="">
+   <a href="./logout/">Logout</a>
+</div>
 <h1>Hello {{ user.nickname }}</h1>
-<p>You want to get voucher for 37C3.</p>
-<p>This is good. c-base has a voucher that is good for max. 70 Tickets</p>
+<p>You want to get voucher for 37C3?</p>
+<p>This is good. c-base has a voucher that is good for max. {{ total_tickets }} tickets.</p>
 
 <form method="post" enctype="multipart/form-data" action="./giveme/">
 <div class="theform">
 <p>
-    <label for="num_tickets">How many tickets do you intend to buy?</label>
-    <input id="num_tickets" type="number" step="1" value="0" name="num_tickets">
+    <label for="num_tickets">How many tickets do you intend to buy?</label><br>
+    <input style="font-size: 24px; margin-left: 3px; margin-top: 5px;" id="num_tickets" type="number" step="1" value="{{ my_val }}" min="0" max="30" name="num_tickets">
 </p>
 <p>
     <input id="agree1" type="checkbox" step="1" name="agree1">
@@ -20,7 +23,7 @@
     <label for="agree2">I will not LEAK this voucher to other people!</label>
 </p>
 <p>
-    <input type="submit" value="Submit voucher request">
+    <input type="submit" value="Submit voucher request" style="font-size: 24px;">
 </p>
 </div>
 </form>
@@ -37,5 +40,7 @@
     {% endfor %}
 </div>
 
+<p>If change your mind, you can set the number of tickets to 0 and submit your request again.
+<br>If you decide that you need more or less tickets, just enter the desired number above, too.</p>
 
 {% endblock content %}
