@@ -12,14 +12,14 @@
 <div class="theform">
 <p>
     <label for="num_tickets">How many tickets do you intend to buy?</label><br>
-    <input style="font-size: 24px; margin-left: 3px; margin-top: 5px;" id="num_tickets" type="number" step="1" value="{{ my_val }}" min="0" max="30" name="num_tickets">
+    <input style="font-size: 24px; margin-left: 3px; margin-top: 5px;" id="num_tickets" type="number" step="1" value="{{ my_val }}" min="0" max="30" name="num_tickets" required>
 </p>
 <p>
-    <input id="agree1" type="checkbox" step="1" name="agree1">
+    <input id="agree1" type="checkbox" step="1" name="agree1" required>
     <label for="agree1">I will only buy tickets for myself</label>
 </p>
 <p>
-    <input id="agree2" type="checkbox" step="1" name="agree2">
+    <input id="agree2" type="checkbox" step="1" name="agree2" required>
     <label for="agree2">I will not LEAK this voucher to other people!</label>
 </p>
 <p>
