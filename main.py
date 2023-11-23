@@ -76,7 +76,8 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nickname = Column(String, unique=True, index=True)
-    num_tickets = Column(String)
+    num_bought = Column(String)
+    num_tickets = Column(Integer)
 
 # create sql tables
 Base.metadata.create_all(engine)
@@ -97,10 +98,16 @@ async def homepage(request: Request):
                 sum_tickets = 0
             tickets_left = settings.total_tickets - sum_tickets
 
+            sum_bought = db.query(func.sum(User.num_bought).label("total_score"))[0][0]
+            if sum_tickets is None:
+                sum_bought = 0
+
             my_val = 0
+            my_bought = 0
             query = list(db.query(User).filter(User.nickname == user['nickname']))
             if len(query) > 0:
                my_val = query[0].num_tickets
+               my_bought = query[0].num_bought
             
             context = {
                 "data": json.dumps(user),
@@ -108,9 +115,11 @@ async def homepage(request: Request):
                 "users": users,
                 "request": request,
                 "sum_tickets": sum_tickets,
+                "sum_bought": sum_bought,
                 "tickets_left": tickets_left,
                 "total_tickets": settings.total_tickets,
                 "my_val": my_val,
+                "my_bought": my_bought,
             }
             return templates.TemplateResponse("index.html", context)
     return templates.TemplateResponse("index_login_required.html", {"request": request})
@@ -142,6 +151,32 @@ async def update_ticket(request: Request,
                 db.commit()
                 pass
             return templates.TemplateResponse("giveme.html", {"request": request, "user": user, "voucher": settings.voucher})
+
+    return templates.TemplateResponse("index_login_required.html", {"request": request})
+
+
+@app.post('/bought/')
+async def update_ticket(request: Request, 
+                        num_bought: Annotated[int, Form()]):
+    user = request.session.get('user')
+    if user:
+        with Session(engine) as db:
+            query = list(db.query(User).filter(User.nickname == user['nickname']))
+            if len(query) == 0:
+                new_entry = User(
+                    nickname=user['nickname'],
+                    num_tickets=0,
+                    num_bought=num_bought,
+                )
+                db.add(new_entry)
+                db.commit()
+            else:
+                my_nick = query[0]
+                my_nick.num_bought = num_bought
+                db.add(my_nick)
+                db.commit()
+                pass
+            return templates.TemplateResponse("bought.html", {"request": request, "user": user, "voucher": settings.voucher})
 
     return templates.TemplateResponse("index_login_required.html", {"request": request})
 

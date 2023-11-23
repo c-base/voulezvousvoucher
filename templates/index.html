@@ -23,18 +23,33 @@
     <label for="agree2">I will not LEAK this voucher to other people!</label>
 </p>
 <p>
-    <input type="submit" value="Submit voucher request" style="font-size: 24px;">
+    <input type="submit" value="Submit/Update voucher request" style="font-size: 24px;">
 </p>
 </div>
 </form>
 
+<form method="post" enctype="multipart/form-data" action="./bought/" style="margin-top: 16px;">
+    <h2>How many tickets were you able to get with the c-base voucher?</h2>
+    <div class="theform">
+        <p>
+            <label for="num_bought">How many tickets DID buy?</label><br>
+            <input style="font-size: 24px; margin-left: 3px; margin-top: 5px;" id="num_bought" type="number" step="1" value="{{ my_bought }}" min="0" max="30" name="num_bought" required>
+        </p>
+        <p>
+            <input type="submit" value="Update tickets bought" style="font-size: 24px;">
+        </p>
+    </div>
+</form>
+
 <p>Tickets left: {{ tickets_left }}</p>
+<p>Tickets successfully bought: {{ sum_bought }}</p>
 
 <p>The following people already have got access to the voucher:</p>
 
 <div class="theform">
     {% for person in users %}
-        {{ person.nickname }}: {{ person.num_tickets }} tickets<br>
+        {{ person.nickname }}: {{ person.num_tickets }} tickets / {{ person.num_bought }} bought. 
+        <br>
     {% else %}
         Nobody has bought a ticket yet.
     {% endfor %}
