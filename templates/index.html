@@ -47,12 +47,33 @@
 <p>The following people already have got access to the voucher:</p>
 
 <div class="theform">
+    
+    <table style="width: 100%; border: 1px solid #fff;">
+    <thead>
+        <tr>
+            <th>Nick</th>
+            <th>Wants </th>
+            <th>Tickets bought*</th>
+        </tr>
+    </thead>
     {% for person in users %}
-        {{ person.nickname }}: {{ person.num_tickets }} tickets / {{ person.num_bought }} bought. 
-        <br>
+    <tr style="border: 1px solid #fff;">
+        <td>
+            {{ person.nickname }}
+        </td>
+        <td>
+            {{ person.num_tickets }}
+        </td>
+        <td>
+            {{ person.num_bought }}
+        </td>
+    </td>
     {% else %}
-        Nobody has bought a ticket yet.
+        <tr><td>Nobody has bought a ticket yet.</td></tr>
     {% endfor %}
+    </table>
+    <br>
+    * Only tickets bought with the c-base voucher.
 </div>
 
 <p>If change your mind, you can set the number of tickets to 0 and submit your request again.

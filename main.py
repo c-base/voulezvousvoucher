@@ -17,7 +17,7 @@ from sqlalchemy import create_engine, Column, Integer, String, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.sql import func
-
+from sqlalchemy import or_
 
 class Settings(BaseSettings):
     client_id: str
@@ -92,7 +92,7 @@ async def homepage(request: Request):
     user = request.session.get('user')
     if user:
         with Session(engine) as db:
-            users = list(db.query(User).filter(User.num_tickets != 0))
+            users = list(db.query(User).filter(or_(User.num_tickets != 0, User.num_bought != 0)))
             sum_tickets = db.query(func.sum(User.num_tickets).label("total_score"))[0][0]
             if sum_tickets is None:
                 sum_tickets = 0
